@@ -1,0 +1,120 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Material{% endblock %}
+
+
+{% block stylesheets %}
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
+{% endblock %}
+
+{% block content %}
+
+
+
+    <!-- Main content -->
+ <section class="content">
+     <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">原材料清单</h3>
+                  <div class="row">
+              <div class="col-12">
+                <a type="submit" href="/material/add/new" class="btn btn-dark float-right">Create new Material</a>
+              </div>
+                  </div>
+              </div>
+
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>name</th>
+                    <th>id</th>
+                    <th>type</th>
+                    <th>remark</th>
+                    <th>available</th>
+                    <th>option</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for item in data %}
+                  <tr>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[6]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td><a type="submit" href="/material/info/{{item[0]}}"  class="btn-sm blue-btn ">info</a>
+                      <a type="submit" href="/material/edit/{{item[0]}}" class="btn-sm blue-btn ">edit</a>
+                      <a type="submit" href="/material/delete/{{item[0]}}" class="btn-sm blue-btn ">delete</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+
+                  </tbody>
+                  <tfoot>
+                   <tr>
+                    <th>name</th>
+                    <th>id</th>
+                    <th>type</th>
+                    <th>remark</th>
+                    <th>available</th>
+                    <th>option</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+     </div>
+ </section>
+
+
+
+
+{% endblock %}
+
+{% block javascript %}
+<!-- DataTables  & Plugins -->
+<script src="{{ url_for('static',filename='assets/assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{ url_for('static',filename='assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static',filename='assets/js/adminlte.min.js')}}"></script>
+
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": true, "autoWidth": true,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>
+
+{% endblock %}
+

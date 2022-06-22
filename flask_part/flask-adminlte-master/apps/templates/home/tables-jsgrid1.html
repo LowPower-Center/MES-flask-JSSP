@@ -1,0 +1,169 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Tables Material {% endblock %}
+
+<!-- Element injected in the BODY element -->
+{% block body_class %} {% endblock body_class %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- jsGrid -->
+  <link rel="stylesheet" href="/static/assets/plugins/jsgrid/jsgrid.min.css">
+  <link rel="stylesheet" href="/static/assets/plugins/jsgrid/jsgrid-theme.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>工艺路线指定</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">TableName</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="config-panel">
+    <label><input id="heading" type="checkbox" checked=""> Heading</label>
+    <label><input id="filtering" type="checkbox" checked=""> Filtering</label>
+    <label><input id="inserting" type="checkbox"> Inserting</label>
+    <label><input id="editing" type="checkbox" checked=""> Editing</label>
+    <label><input id="paging" type="checkbox" checked=""> Paging</label>
+    <label><input id="sorting" type="checkbox" checked=""> Sorting</label>
+    <label><input id="selecting" type="checkbox" checked=""> Selecting</label>
+</div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">TableName</h3>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div id="jsGrid1"></div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <!-- jQuery -->
+  <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- jsGrid -->
+  <script src="/static/assets/plugins/jsgrid/demos/db.js"></script>
+  <script src="/static/assets/plugins/jsgrid/jsgrid.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/static/assets/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/static/assets/js/demo.js"></script>
+  <!-- page script -->
+    <script src="/static/assets/js/get_data.js"></script>
+  <script>
+
+    $(function () {
+           $(".config-panel input[type=checkbox]").on("click", function() {
+        var $cb = $(this);
+        $("#jsGrid1").jsGrid("option", $cb.attr("id"), $cb.is(":checked"));
+    });
+
+    var techset=["工艺路线1","工艺路线2","工艺路线3","工艺路线4","工艺路线5","工艺路线6","工艺路线7","工艺路线8","工艺路线9","工艺路线10"];
+      $("#jsGrid1").jsGrid({
+
+          height: "400px",
+          width: "100%",
+
+          filtering: true,
+          editing: true,
+          sorting: true,
+          paging: true,
+          autoload: true,
+          inserting: true,
+          pageSize: 10,
+          pageButtonCount: 5,
+          deleteConfirm: "确认需要删除数据？",
+          loadMessage: "正在装载数据，请稍候......",
+          fields: [
+
+              {name:"path", type:"select",items:techset,width: 100},
+              { name: "bom", type: "text", width: 250 },
+
+               {type: "control",
+               }
+          ],
+         
+          controller:{
+    loadData: function() {
+        return $.ajax({
+            type: "GET",
+            url: "/data/technology",
+            datatype:"json"
+        });
+    },
+
+    insertItem: function(item) {
+        return $.ajax({
+            type: "POST",
+            url: "/data/technology",
+            data: item
+        });
+    },
+
+    updateItem: function(item) {
+        return $.ajax({
+            type: "PUT",
+            url: "/data/technology",
+            data: item
+        });
+    },
+
+    deleteItem: function(item) {
+        return $.ajax({
+            type: "DELETE",
+            url: "/data/technology",
+            data: item
+        });
+    },
+}
+
+
+      });
+    });
+  </script>
+
+{% endblock javascripts %}
+
+
+
+
+
+
+
+

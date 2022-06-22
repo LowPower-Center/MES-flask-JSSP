@@ -1,0 +1,131 @@
+[
+    {
+        "id": "5a6c5686060e044a",
+        "type": "tab",
+        "label": "JSSP",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8da620029e5c4561",
+        "type": "exec",
+        "z": "5a6c5686060e044a",
+        "command": "cd /root/L2D-main2/L2D-main && python3 env_lab.py",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 640,
+        "y": 80,
+        "wires": [
+            [
+                "8d1f7679dc37fe1a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b9244bfb6694e75b",
+        "type": "debug",
+        "z": "5a6c5686060e044a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "882172ecd3aef85f",
+        "type": "http in",
+        "z": "5a6c5686060e044a",
+        "name": "",
+        "url": "/jssp",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "cc4365c2dc90c25f"
+            ]
+        ]
+    },
+    {
+        "id": "cc4365c2dc90c25f",
+        "type": "json",
+        "z": "5a6c5686060e044a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "20080fa611af01a2"
+            ]
+        ]
+    },
+    {
+        "id": "20080fa611af01a2",
+        "type": "file",
+        "z": "5a6c5686060e044a",
+        "name": "",
+        "filename": "/root/L2D-main2/L2D-main/data1.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 180,
+        "y": 400,
+        "wires": [
+            [
+                "8da620029e5c4561"
+            ]
+        ]
+    },
+    {
+        "id": "8d1f7679dc37fe1a",
+        "type": "file in",
+        "z": "5a6c5686060e044a",
+        "name": "",
+        "filename": "/root/L2D-main2/L2D-main/plan.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 620,
+        "y": 260,
+        "wires": [
+            [
+                "b9244bfb6694e75b",
+                "0f95f3985aa6ff8e"
+            ]
+        ]
+    },
+    {
+        "id": "0f95f3985aa6ff8e",
+        "type": "http response",
+        "z": "5a6c5686060e044a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1170,
+        "y": 260,
+        "wires": []
+    }
+]

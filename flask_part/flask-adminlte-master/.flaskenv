@@ -1,0 +1,5 @@
+FLASK_APP = run
+FLASK_ENV = development
+#是否对外可见
+#FLASK_RUN_HOST=0.0.0.0
+FLASK_RUN_PORT=5000
